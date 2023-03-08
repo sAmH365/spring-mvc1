@@ -25,6 +25,6 @@ class RequestBodyJsonServlet: HttpServlet() {
         println("helloData.username = ${helloData.username}")
         println("helloData.age = ${helloData.age}")
 
-        response.writer.write("ok!")
+        response.writer.write("ok")
     }
 }
