@@ -6,5 +6,5 @@ class ModelView(
     var viewName: String,
 ) {
 
-    val model: MutableMap<String, Any> = HashMap()
+    var model: MutableMap<String, Any> = HashMap()
 }

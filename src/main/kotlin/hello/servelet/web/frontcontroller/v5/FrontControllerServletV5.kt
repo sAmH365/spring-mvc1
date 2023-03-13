@@ -4,7 +4,11 @@ import hello.servelet.web.frontcontroller.MyView
 import hello.servelet.web.frontcontroller.v3.controller.MemberFormControllerV3
 import hello.servelet.web.frontcontroller.v3.controller.MemberListControllerV3
 import hello.servelet.web.frontcontroller.v3.controller.MemberSaveControllerV3
+import hello.servelet.web.frontcontroller.v4.controller.MemberFormControllerV4
+import hello.servelet.web.frontcontroller.v4.controller.MemberListControllerV4
+import hello.servelet.web.frontcontroller.v4.controller.MemberSaveControllerV4
 import hello.servelet.web.frontcontroller.v5.adapter.ControllerV3HandlerAdapter
+import hello.servelet.web.frontcontroller.v5.adapter.ControllerV4HandlerAdapter
 import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
@@ -26,10 +30,16 @@ class FrontControllerServletV5: HttpServlet() {
         handlerMappingMap.put("/front-controller/v5/v3/members/new-form", MemberFormControllerV3())
         handlerMappingMap.put("/front-controller/v5/v3/members/save", MemberSaveControllerV3())
         handlerMappingMap.put("/front-controller/v5/v3/members", MemberListControllerV3())
+
+        // V4 추가
+        handlerMappingMap.put("/front-controller/v5/v4/members/new-form", MemberFormControllerV4())
+        handlerMappingMap.put("/front-controller/v5/v4/members/save", MemberSaveControllerV4())
+        handlerMappingMap.put("/front-controller/v5/v4/members", MemberListControllerV4())
     }
 
     private fun initHandlerAdapters() {
         handlerAdapters.add(ControllerV3HandlerAdapter())
+        handlerAdapters.add(ControllerV4HandlerAdapter())
     }
 
     override fun service(request: HttpServletRequest, response: HttpServletResponse) {
