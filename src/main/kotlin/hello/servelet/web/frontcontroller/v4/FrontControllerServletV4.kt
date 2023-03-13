@@ -1,4 +1,4 @@
-package hello.servelet.web.frontcontroller.v3
+package hello.servelet.web.frontcontroller.v4
 
 import hello.servelet.web.frontcontroller.MyView
 import hello.servelet.web.frontcontroller.v2.controller.MemberFormControllerV2
@@ -7,23 +7,26 @@ import hello.servelet.web.frontcontroller.v2.controller.MemberSaveControllerV2
 import hello.servelet.web.frontcontroller.v3.controller.MemberFormControllerV3
 import hello.servelet.web.frontcontroller.v3.controller.MemberListControllerV3
 import hello.servelet.web.frontcontroller.v3.controller.MemberSaveControllerV3
+import hello.servelet.web.frontcontroller.v4.controller.MemberFormControllerV4
+import hello.servelet.web.frontcontroller.v4.controller.MemberListControllerV4
+import hello.servelet.web.frontcontroller.v4.controller.MemberSaveControllerV4
 import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
 
-@WebServlet(name = "frontControllerServletV3", urlPatterns = ["/front-controller/v3/*"])
-class FrontControllerServletV3: HttpServlet() {
+@WebServlet(name = "frontControllerServletV4", urlPatterns = ["/front-controller/v4/*"])
+class FrontControllerServletV4: HttpServlet() {
 
-    val logger = LoggerFactory.getLogger(FrontControllerServletV3::class.java)
+    val logger = LoggerFactory.getLogger(FrontControllerServletV4::class.java)
 
-    val controllerMap :MutableMap<String, ControllerV3> = HashMap()
+    val controllerMap :MutableMap<String, ControllerV4> = HashMap()
 
     init {
-        controllerMap.put("/front-controller/v3/members/new-form", MemberFormControllerV3())
-        controllerMap.put("/front-controller/v3/members/save", MemberSaveControllerV3())
-        controllerMap.put("/front-controller/v3/members", MemberListControllerV3())
+        controllerMap.put("/front-controller/v4/members/new-form", MemberFormControllerV4())
+        controllerMap.put("/front-controller/v4/members/save", MemberSaveControllerV4())
+        controllerMap.put("/front-controller/v4/members", MemberListControllerV4())
     }
 
     override fun service(request: HttpServletRequest, response: HttpServletResponse) {
@@ -37,12 +40,13 @@ class FrontControllerServletV3: HttpServlet() {
         }
 
         val paramMap: MutableMap<String, String> = createParamMap(request)
-        val mv = controller.process(paramMap)
+        val model: MutableMap<String, Any> = hashMapOf()
 
-        val viewName = mv.viewName // 논리적 이름
+        val viewName = controller.process(paramMap, model)
+
         val view = viewResolver(viewName) // 물리적 이름 (full path)
 
-        view.render(mv.model, request, response)
+        view.render(model, request, response)
     }
 
     private fun viewResolver(viewName: String) = MyView("/WEB-INF/views/${viewName}.jsp")

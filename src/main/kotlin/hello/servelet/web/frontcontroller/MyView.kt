@@ -23,7 +23,7 @@ class MyView(
         request: HttpServletRequest
     ) {
         model.forEach { (key, value) ->
-            request.setAttribute(key, value)
+            request.setAttribute(key, value) // requst.setAttribute()에 담아놔야지 jsp에서 편하게 사용 가능, jsp 말고 다른 템플릿에서는 다른방식 사용
         }
     }
 }
