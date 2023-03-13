@@ -23,7 +23,10 @@ dependencies {
 
 	// JSP 추가 시작
 	implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
-	implementation("javax.servlet:jstl")
+	implementation("jakarta.servlet:jakarta.servlet-api")
+	implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api")
+	implementation("org.glassfish.web:jakarta.servlet.jsp.jstl")
+//	implementation("javax.servlet:jstl")
 	// JSP 추가 끝
 
 

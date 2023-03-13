@@ -1,18 +1,15 @@
-package hello.servelet.web.servletmvc
+package hello.servelet.web.frontcontroller.v1.controller
 
 import hello.servelet.domain.member.Member
 import hello.servelet.domain.member.MemberRepository
-import jakarta.servlet.annotation.WebServlet
-import jakarta.servlet.http.HttpServlet
+import hello.servelet.web.frontcontroller.v1.ControllerV1
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 
-@WebServlet(name = "mvcMemberSaveServlet", urlPatterns = ["/servlet-mvc/members/save"])
-class MvcMemberSaveServlet:HttpServlet() {
-
+class MemberSaveControllerV1:ControllerV1 {
     private val memberRepository = MemberRepository.getInstance()
 
-    override fun service(request: HttpServletRequest, response: HttpServletResponse) {
+    override fun process(request: HttpServletRequest, response: HttpServletResponse) {
         val username = request.getParameter("username")
         val age = Integer.parseInt(request.getParameter("age"))
 
